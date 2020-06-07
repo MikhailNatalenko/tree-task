@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include <nlohmann/json.hpp>
-
+#include "Node.h"
 
 using json = nlohmann::json;
 
@@ -88,42 +88,19 @@ void test_json()
 }
 
 
-struct INode
-{
-    virtual void append_json(nlohmann::json & obj) = 0;
-    //TODO: safe ptr
-    virtual void add_node(INode & node) = 0;
-};
-
-
-//TODO: use class instead
-template <typename T>
-struct Node : INode
-{
-    Node(T val) : val(val) {};
-    ~Node() {
-        for (auto node : siblings)
-        {
-            delete node;
-        }
-    };
-
-    void append_json(nlohmann::json& obj) 
-    {
-        for (auto node : siblings)
-        {
-            append_json();
-        }
-    }
-
-    T val;
-
-    std::vector <INode*> siblings;
-};
-
 int main()
 {
+    Node<int> a(3);
+    Node<int> b(2);
+    Node<float> c(3.1415);
+    a.children.push_back(&b);
+    a.children.push_back(&c);
+
+    json j;
+    a.append_json(j);
+
+    std::cout << j << std::endl;
     std::cout << "Hello World!\n";
-    test_json();
+
 }
 
