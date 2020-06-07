@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="crc\main.cpp" />
+    <ClCompile Include="crc\Node.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="crc\Node.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
