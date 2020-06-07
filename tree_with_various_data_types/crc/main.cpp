@@ -5,46 +5,58 @@
 
 void test_memleaks()
 {
-    for (int i = 0; i < 10000; i++)
+    for (int i = 0; i < 100; i++)
     {
         treetask::Node<int> a(3);
-        auto b = std::make_shared <treetask::NodeString>("lake");
-        auto c = std::make_shared <treetask::NodeFloat>(0.8);
+        auto b = std::make_shared <treetask::Node<std::string>>("river");
+        auto c = std::make_shared <treetask::Node<float>>(0.8);
 
-        a.add_child(std::make_shared<treetask::NodeInt>(2));
-        a.add_child(std::make_shared<treetask::NodeFloat>(3.1415));
+        a.add_child(std::make_shared<treetask::Node<int>>(2));
+        a.add_child(std::make_shared<treetask::Node<float>>(3.1415));
 
-        b->add_child(std::make_shared<treetask::NodeString>("Agidel"));
-        b->add_child(std::make_shared<treetask::NodeInt>(8));
-        b->add_child(std::make_shared<treetask::NodeFloat>(5.0));
+        b->add_child(std::make_shared<treetask::Node<std::string>>("Agidel"));
+        b->add_child(std::make_shared<treetask::Node<int>>(8));
+        b->add_child(std::make_shared<treetask::Node<float>>(5.0));
 
-        c->add_child(std::make_shared<treetask::NodeFloat>(0.2));
-        c->add_child(std::make_shared<treetask::NodeInt>(3));
+        c->add_child(std::make_shared<treetask::Node<float>>(0.2));
+        c->add_child(std::make_shared<treetask::Node<int>>(3));
         b->add_child(c);
         a.add_child(b);
         nlohmann::json j;
         a.serialise(j);
-        //std::string s = j.dump();
+        std::string s = j.dump();
+        nlohmann::json mirror = nlohmann::json::parse(s);
+
+        auto parse_res = treetask::parse_children(mirror);
+        if (parse_res.first == treetask::status_t::OK)
+        {
+            auto mirror_obj = parse_res.second;
+
+            nlohmann::json mirror_json;
+            (*mirror_obj).serialise(mirror_json);
+            std::string s2 = mirror_json.dump();
+        }
     }
 }
 
 
 int main()
 {
+    test_memleaks();
     std::cout << "Hello " << std::endl;
     treetask::Node<int> a(3);
-    auto b = std::make_shared <treetask::NodeString>("lake");
-    auto c = std::make_shared <treetask::NodeFloat>(0.8);
+    auto b = std::make_shared <treetask::Node<std::string>>("lake");
+    auto c = std::make_shared <treetask::Node<float>>(0.8);
 
-    a.add_child(std::make_shared<treetask::NodeInt>(2));
-    a.add_child(std::make_shared<treetask::NodeFloat>(3.1415));
+    a.add_child(std::make_shared<treetask::Node<int>>(2));
+    a.add_child(std::make_shared<treetask::Node<float>>(3.1415));
 
-    b->add_child(std::make_shared<treetask::NodeString>("Agidel"));
-    b->add_child(std::make_shared<treetask::NodeInt>(8));
-    b->add_child(std::make_shared<treetask::NodeFloat>(5.0));
+    b->add_child(std::make_shared<treetask::Node<std::string>>("Agidel"));
+    b->add_child(std::make_shared<treetask::Node<int>>(8));
+    b->add_child(std::make_shared<treetask::Node<float>>(5.0));
 
-    c->add_child(std::make_shared<treetask::NodeFloat>(0.2));
-    c->add_child(std::make_shared<treetask::NodeInt>(3));
+    c->add_child(std::make_shared<treetask::Node<float>>(0.2));
+    c->add_child(std::make_shared<treetask::Node<int>>(3));
     b->add_child(c);
     a.add_child(b);
     nlohmann::json j;
@@ -67,5 +79,6 @@ int main()
         std::cout << s2 << std::endl;
     }
 
+    return 0;
 }
 

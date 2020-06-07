@@ -19,17 +19,17 @@ std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::j
     switch (val.type())
     {
     case nlohmann::detail::value_t::string:
-        current = std::make_shared<NodeString>(val.get<std::string>());
+        current = std::make_shared<Node<std::string>>(val.get<std::string>());
         ;
         break;
 
     case nlohmann::detail::value_t::number_unsigned:
     case nlohmann::detail::value_t::number_integer:
-        current = std::make_shared<NodeInt>(val.get<int>());
+        current = std::make_shared<Node<int>>(val.get<int>());
         break;
 
     case nlohmann::detail::value_t::number_float:
-        current = std::make_shared<NodeFloat>(val.get<float>());
+        current = std::make_shared<Node<float>>(val.get<float>());
         break;
 
     default:

@@ -4,7 +4,6 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 
-
 namespace treetask {
 	class INode
 	{
@@ -22,6 +21,7 @@ namespace treetask {
 		public INode
 	{
 	public:
+
 		Node(T val) : val(val) {};
 		Node(const Node<T>& obj) : val(obj.val), children(obj.children) {};
 		//TODO: Test it
@@ -43,11 +43,11 @@ namespace treetask {
 			{
 				; child->append_json(arr, false);
 			}
-			//TODO: Save const value
 
 			if (!starter)
 			{
 				nlohmann::json j;
+			//TODO: Hardcode
 				j["arr"] = arr;
 				j["data"] = val;
 				obj.push_back(j);
@@ -67,15 +67,11 @@ namespace treetask {
 		}
 
 	protected:
-
+		
 		T val;
 
 		std::vector <std::shared_ptr<INode>> children;
 	};
-
-	using NodeString = Node<std::string>;
-	using NodeInt = Node<int>;
-	using NodeFloat = Node<float>;
 
 
 	// Return values for parsing
