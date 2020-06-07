@@ -66,6 +66,8 @@ namespace treetask {
 			children.push_back(child);
 		}
 
+	protected:
+
 		T val;
 
 		std::vector <std::shared_ptr<INode>> children;

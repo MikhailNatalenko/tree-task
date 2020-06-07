@@ -29,11 +29,6 @@ void test_memleaks()
 }
 
 
-
-
-
-
-
 int main()
 {
     std::cout << "Hello " << std::endl;
