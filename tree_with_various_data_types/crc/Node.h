@@ -79,6 +79,7 @@ namespace treetask {
 	// Return values for parsing
 	enum class status_t {
 		OK,
+		EMPTY_VAL,
 		BAD_TOKEN
 	};
 

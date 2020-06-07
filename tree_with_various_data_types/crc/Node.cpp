@@ -2,16 +2,17 @@
 
 using namespace treetask;
 
-std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::json& mirror)
+std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::json& obj)
 {
-    std::cout << __func__ << mirror << std::endl;
-    if (!mirror.contains("arr"))
-        return { status_t::BAD_TOKEN , nullptr };
+    std::cout << __func__ << obj << std::endl;
 
-    if (!mirror.contains("data"))
-        return { status_t::BAD_TOKEN , nullptr };
+    if (!obj.contains("arr"))
+        return { status_t::EMPTY_VAL , nullptr };
 
-    nlohmann::json val = mirror["data"];
+    if (!obj.contains("data"))
+        return { status_t::EMPTY_VAL , nullptr };
+
+    nlohmann::json val = obj["data"];
     std::cout << "VAL: " << val << std::endl;
     std::shared_ptr<INode> current;
 
@@ -36,7 +37,7 @@ std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::j
         return { status_t::BAD_TOKEN , nullptr };
     }
 
-    auto get_arr = mirror.at("arr");
+    auto get_arr = obj.at("arr");
 
     for (auto& node : get_arr.items())
     {
@@ -50,6 +51,10 @@ std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::j
         if (child.first == status_t::OK)
         {
             (*current).add_child(child.second);
+        }
+        if (child.first == status_t::BAD_TOKEN)
+        {
+            return { status_t::BAD_TOKEN, current };
         }
     }
     return { status_t::OK, current };
