@@ -87,20 +87,34 @@ void test_json()
     o.erase("foo");
 }
 
+void test_memleaks()
+{
+    for (int i = 0; i < 10000; i++)
+    {
+        Node<int> a(3);
+        a.children.push_back(std::make_shared<Node<int>>(2));
+        a.children.push_back(std::make_shared<Node<float>>(3.1415));    
+    }
+}
 
 int main()
 {
+    test_memleaks();
     Node<int> a(3);
     Node<int> b(2);
     Node<float> c(3.1415);
-    a.children.push_back(&b);
-    a.children.push_back(&c);
+    a.children.push_back(std::make_shared<Node<int>>(2));
+    a.children.push_back(std::make_shared<Node<float>>(3.1415));
 
-    json j;
+    nlohmann::json j;
     a.append_json(j);
+    std::string s = j.dump();
 
-    std::cout << j << std::endl;
-    std::cout << "Hello World!\n";
+
+    nlohmann::json mirror = nlohmann::json::parse(s);
+
+
+    std::cout << mirror;
 
 }
 

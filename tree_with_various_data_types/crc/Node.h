@@ -19,12 +19,11 @@ class Node :
 {
 public:
     Node(T val) : val(val) {};
-    virtual ~Node() {
-        for (INode* child : children)
-        {
-            //delete child;
-        }
-    };
+    Node(const Node<T> & obj) : val(obj.val), children(obj.children){};
+    //TODO: Test it
+    Node(Node<T>&& obj) : val(obj.val), children(std::move(obj.children)) {};
+
+    virtual ~Node() {};
 
     void append_json(nlohmann::json& obj) override
     {
@@ -33,16 +32,30 @@ public:
 
         nlohmann::json arr = nlohmann::json::array();
 
-        for (INode* child : children)
+        for (auto child : children)
         {
-            child->append_json(arr);
+            ; child->append_json(arr);
         }
+        //TODO: Save const value
         j["arr"] = arr;
         obj.push_back(j);
     }
 
+
+    void parse_children(nlohmann::json & obj)
+    {
+        for (auto& node : obj.items())
+        {
+            //TODO EXceptions
+            std::shared_ptr<INode> value (new Node(node["data"]));
+            if (node.key() == "arr")
+            {
+
+            }
+        }
+    }
     T val;
 
-    std::vector <INode*> children;
+    std::vector <std::shared_ptr<INode>> children;
 };
 
