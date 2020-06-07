@@ -42,7 +42,7 @@ void test_memleaks()
 
 int main()
 {
-    test_memleaks();
+    //test_memleaks();
     std::cout << "Hello " << std::endl;
     treetask::Node<int> a(3);
     auto b = std::make_shared <treetask::Node<std::string>>("lake");
