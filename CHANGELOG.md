@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## TODO
 
 ## Unreleased
-
+- Add test
+- Add most of serialiastion logics
 
 ## [0.1.0] - 06.06.2020
 - Init project
