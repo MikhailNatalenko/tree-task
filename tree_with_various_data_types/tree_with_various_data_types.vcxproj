@@ -25,6 +25,9 @@
   <ItemGroup>
     <ClInclude Include="crc\Node.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\CHANGELOG.md" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{802A201B-74C4-46F9-86C2-7FD681296D9B}</ProjectGuid>

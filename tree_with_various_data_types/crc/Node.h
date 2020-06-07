@@ -9,7 +9,9 @@
 class INode 
 {
 public:
+    virtual void add_child(std::shared_ptr<INode> child) = 0;
     virtual void append_json(nlohmann::json& obj, bool starter) = 0;
+    virtual void serialise(nlohmann::json& obj) = 0;
     virtual ~INode() {
     };
 
@@ -60,15 +62,7 @@ public:
 
     void parse_children(nlohmann::json & obj)
     {
-        for (auto& node : obj.items())
-        {
-            //TODO EXceptions
-            std::shared_ptr<INode> value (new Node(node["data"]));
-            if (node.key() == "arr")
-            {
 
-            }
-        }
     }
 
     void add_child(std::shared_ptr<INode> child)

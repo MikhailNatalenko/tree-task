@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "../tree_with_various_data_types/crc/Node.h"
 
-TEST(TestCaseName, MirrorTest) {
+TEST(TestCaseName, MirrorTest1) {
   
     Node<int> a(3);
     a.add_child(std::make_shared<Node<int>>(2));
