@@ -32,6 +32,10 @@
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <SourcePath>C:\Users\Kenjy\source\repos\tree_with_various_data_types\tree_with_various_data_types\crc;$(SourcePath)</SourcePath>
+    <IncludePath>C:\Users\Kenjy\source\repos\tree_with_various_data_types\tree_with_various_data_types\include;C:\Users\Kenjy\source\repos\tree_with_various_data_types\tree_with_various_data_types\crc;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
@@ -71,6 +75,8 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>C:\Users\Kenjy\source\repos\tree_with_various_data_types\tree_with_various_data_types\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Node.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
