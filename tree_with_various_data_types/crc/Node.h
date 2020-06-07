@@ -4,10 +4,12 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 
+
+
 class INode 
 {
 public:
-    virtual void append_json(nlohmann::json& obj) = 0;
+    virtual void append_json(nlohmann::json& obj, bool starter) = 0;
     virtual ~INode() {
     };
 
@@ -25,20 +27,34 @@ public:
 
     virtual ~Node() {};
 
-    void append_json(nlohmann::json& obj) override
+    void serialise(nlohmann::json& obj)
     {
-        nlohmann::json j;
-        j["data"] = val;
+        append_json(obj, true);
+    }
+
+    void append_json(nlohmann::json& obj, bool starter = false) override
+    {
 
         nlohmann::json arr = nlohmann::json::array();
 
         for (auto child : children)
         {
-            ; child->append_json(arr);
+            ; child->append_json(arr, false);
         }
         //TODO: Save const value
-        j["arr"] = arr;
-        obj.push_back(j);
+
+        if (!starter)
+        {
+            nlohmann::json j;   
+            j["arr"] = arr;
+            j["data"] = val;
+            obj.push_back(j);
+        }
+        else 
+        {
+            obj["arr"] = arr;
+            obj["data"] = val;
+        }
     }
 
 
@@ -54,8 +70,17 @@ public:
             }
         }
     }
+
+    void add_child(std::shared_ptr<INode> child)
+    {
+        children.push_back(child);
+    }
+
     T val;
 
     std::vector <std::shared_ptr<INode>> children;
 };
 
+using NodeString = Node<std::string>;
+using NodeInt = Node<int>;
+using NodeFloat = Node<float>;
