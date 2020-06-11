@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## TODO
 
 ## Unreleased
+
+## [0.3.0] - 11.06.2020
+- Add args parse
+- Add pretty output
+- Add Exceptions handling
+
 ## [0.2.0] - 07.06.2020
 - Add test
 - Add serialiastion logics
