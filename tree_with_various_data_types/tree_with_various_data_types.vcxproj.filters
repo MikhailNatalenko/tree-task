@@ -32,4 +32,9 @@
       <Filter>Файлы ресурсов</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="test1.json">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

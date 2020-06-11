@@ -4,8 +4,6 @@ using namespace treetask;
 
 std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::json& obj)
 {
-    std::cout << __func__ << obj << std::endl;
-
     if (!obj.contains("arr"))
         return { status_t::EMPTY_VAL , nullptr };
 
@@ -13,7 +11,6 @@ std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::j
         return { status_t::EMPTY_VAL , nullptr };
 
     nlohmann::json val = obj["data"];
-    std::cout << "VAL: " << val << std::endl;
     std::shared_ptr<INode> current;
 
     switch (val.type())

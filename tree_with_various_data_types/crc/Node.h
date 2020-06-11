@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -11,6 +11,7 @@ namespace treetask {
 		virtual void add_child(std::shared_ptr<INode> child) = 0;
 		virtual void append_json(nlohmann::json& obj, bool starter) = 0;
 		virtual void serialise(nlohmann::json& obj) = 0;
+		virtual void print(int level = 0) = 0;
 		virtual ~INode() {
 		};
 
@@ -64,6 +65,21 @@ namespace treetask {
 		void add_child(std::shared_ptr<INode> child)
 		{
 			children.push_back(child);
+		}
+
+		void print(int level = 0) override
+		{
+			for (int i = 0; i < level; i++)
+			{
+				std::cout << "  ";
+			}
+			std::cout << "+-"<<val << std::endl;
+			
+			++level;
+			for (auto child : children)
+			{
+				child->print(level);
+			}
 		}
 
 	protected:
