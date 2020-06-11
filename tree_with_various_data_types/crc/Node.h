@@ -3,6 +3,7 @@
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <vector>
+#include <iosfwd>
 
 namespace treetask {
 	class INode
@@ -102,3 +103,5 @@ namespace treetask {
 	std::pair<status_t, std::shared_ptr<INode>> parse_children(nlohmann::json&);
 
 }
+
+std::ostream& operator<<(std::ostream & const os, treetask::status_t& val);

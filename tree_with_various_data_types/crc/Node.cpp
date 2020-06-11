@@ -1,5 +1,5 @@
 #include "Node.h"
-
+#include <iostream>
 using namespace treetask;
 
 std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::json& obj)
@@ -38,10 +38,6 @@ std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::j
 
     for (auto& node : get_arr.items())
     {
-        //nlohmann::json val = node.value();
-        //std::cout << " - :" << val.type() << " || "<< val << std::endl;
-
-
         nlohmann::json arr = node.value();
         auto child = treetask::parse_children(arr);
 
@@ -55,4 +51,19 @@ std::pair<status_t, std::shared_ptr<INode>> treetask::parse_children(nlohmann::j
         }
     }
     return { status_t::OK, current };
+}
+
+std::ostream& operator<<(std::ostream & const os, treetask::status_t& val)
+{
+    switch (val) {
+    case treetask::status_t::OK:
+        os << "OK";
+        break;
+    case treetask::status_t::BAD_TOKEN:
+        os << "BAD_TOKEN";
+        break;
+    case treetask::status_t::EMPTY_VAL:
+        os << "EMPTY_VAL";
+    }
+    return os;
 }
